@@ -1,9 +1,9 @@
 {
-	"name": "ddl-3-to-go-struct",
-	"displayName": "DDL 3 To Go Struct",
+	"name": "from-ddl-to-go-struct",
+	"displayName": "Convert DDL To Go Struct",
 	"publisher": "davidtran",
-	"description": "Convert the DDL (sql) instructions to Go Struct",
-	"version": "0.0.5",
+	"description": "Convert the DDL instructions to Go Struct",
+	"version": "1.0.0",
 	"icon": "icon.png",
 	"engines": {
 		"vscode": "^1.36.0"
@@ -13,29 +13,28 @@
 		"Formatters"
 	],
 	"activationEvents": [
-		"onCommand:extension.ddl-3-to-go-struct"
+		"onCommand:extension.from-ddl-to-go-struct"
 	],
 	"main": "./extension.js",
 	"author": {
-		"name": "David Tran - Senior",
-		"email": "david.tr.se@gmail.com",
-		"url": "https://github.com/Davidtrse/"
+		"name": "David Tran",
+		"email": "david.tr.se@gmail.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Davidtrse"
+		"url": "https://github.com/Davidtrse/ddl-3-to-go-struct.git"
 	},
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.ddl-3-to-go-struct",
-				"title": "DDLTOGS: Convert the DDL (sql) instructions to Go Struct"
+				"command": "extension.from-ddl-to-go-struct",
+				"title": "DDL2GS: Convert the DDL instructions to Go Struct"
 			}
 		],
 		"keybindings": [
 			{
-				"command": "extension.ddl-3-to-go-struct",
-				"title": "%extension.ddl-3-to-go-struct%",
+				"command": "extension.from-ddl-to-go-struct",
+				"title": "%extension.from-ddl-to-go-struct%",
 				"key": "ctrl+shift+i",
 				"mac": "cmd+shift+i"
 			}

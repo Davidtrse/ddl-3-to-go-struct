@@ -72,7 +72,7 @@ yo code
 ```
 
 ## Version
-`V0.0.5`
+`V0.0.7`
 
 ## License
 

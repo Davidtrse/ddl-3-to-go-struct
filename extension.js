@@ -39,7 +39,7 @@ function activate(context) {
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
-    "extension.ddl-3-to-go-struct",
+    "extension.from-ddl-to-go-struct",
     function () {
       var editor = vscode.window.activeTextEditor;
       if (!editor) {
@@ -61,9 +61,9 @@ function activate(context) {
         }
 
         try {
-          const rs = /create\stable\s"?([a-zA-Z\.\_]+)"?\s?\(?/gim.exec(line);
+          let rs = /create\stable\s(if not exists\s)?"?([a-zA-Z\.\_]+)"?\s?\(?/gim.exec(line);
           if (rs != null) {
-            let tableTitle = rs[1];
+            let tableTitle = rs[2];
             tableTitle = tableTitle.replace(/([a-zA-Z]+\.)/, "");
             tableTitle = tableTitle.replace(/^(t\_)/, "");
             structCodes = [
@@ -78,7 +78,7 @@ function activate(context) {
 
           if (/[a-zA-Z\_]+\s(uuid)/gi.exec(line) != null) {
             const colunmName = line.split(" ")[0];
-            if (/NOT\sNULL/gi.exec(line) == null) {
+            if (/not\snull/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
@@ -99,11 +99,10 @@ function activate(context) {
             }
           }
 
-          if (
-            /[a-zA-Z\_]+\s(text|character|inet|varchar)/gi.exec(line) != null
-          ) {
-            const colunmName = line.split(" ")[0];
-            if (/NOT\sNULL/gi.exec(line) == null) {
+          rs = /"?([a-zA-Z\_]+)"?\s(text|character|inet|varchar)/gi.exec(line);
+          if (rs != null) {
+            const colunmName = rs[1];
+            if (/not\snull/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
@@ -124,13 +123,10 @@ function activate(context) {
             }
           }
 
-          if (
-            /[a-zA-Z\_]+\s(serial|integer|int|bigserial|bigint|smallint)/gi.exec(
-              line
-            ) != null
-          ) {
-            const colunmName = line.split(" ")[0];
-            if (/NOT\sNULL/gi.exec(line) == null) {
+          rs = /"?([a-zA-Z\_]+)"?\s(serial|int|integer|bigserial|bigint|smallint)/gi.exec(line)
+          if (rs != null) {
+            const colunmName = rs[1];
+            if (/not\snull/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
@@ -151,14 +147,15 @@ function activate(context) {
             }
           }
 
-          if (/[a-zA-Z\_]+\s(float|numeric|decinal)/gi.exec(line) != null) {
-            const colunmName = line.split(" ")[0];
-            if (/NOT\sNULL/gi.exec(line) == null) {
+          rs = /"?([a-zA-Z\_]+)"?\s(float|numeric|decimal)/gi.exec(line)
+          if (rs != null) {
+            const colunmName = rs[1];
+            if (/not\snull/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
                 makeTitle(colunmName) +
-                '\t*Float64\t`db:"' +
+                '\t*float64\t`db:"' +
                 colunmName +
                 '"`',
               ];
@@ -174,9 +171,10 @@ function activate(context) {
             }
           }
 
-          if (/[a-zA-Z\_]+\s(boolean|bool)/gi.exec(line) != null) {
-            const colunmName = line.split(" ")[0];
-            if (/NOT\sNULL/gi.exec(line) == null) {
+          rs = /"?([a-zA-Z\_]+)"?\s(boolean)/gi.exec(line)
+          if (rs != null) {
+            const colunmName = rs[1];
+            if (/not\snull/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
@@ -197,8 +195,9 @@ function activate(context) {
             }
           }
 
-          if (/[a-zA-Z\_]+\s(json)/gi.exec(line) != null) {
-            const colunmName = line.split(" ")[0];
+          rs = /"?([a-zA-Z\_]+)"?\s(json)/gi.exec(line)
+          if (rs != null) {
+            const colunmName = rs[1];
             structCodes = [
               ...structCodes,
               "\t" +
@@ -209,18 +208,10 @@ function activate(context) {
             ];
           }
 
-          if (/[a-zA-Z\_]+\s(timestamp)/gi.exec(line) != null) {
-            const colunmName = line.split(" ")[0];
-            structCodes = [
-              ...structCodes,
-              "\t" +
-              makeTitle(colunmName) +
-              '\t*time.Time\t`db:"' +
-              colunmName +
-              '"`',
-            ];
-
-            if (/NOT\sNULL/gi.exec(line) == null) {
+          rs = /"?([a-zA-Z\_]+)"?\s(timestamp)/gi.exec(line)
+          if (rs != null) {
+            const colunmName = rs[1];
+            if (/not\snull/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
