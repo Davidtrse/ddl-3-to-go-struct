@@ -5,7 +5,7 @@ const vscode = require("vscode");
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
-String.toTitle = function(str) {
+String.toTitle = function (str) {
   if (str && str.length > 0) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -39,8 +39,8 @@ function activate(context) {
   // Now provide the implementation of the command with  registerCommand
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand(
-    "extension.ddl-to-go-struct",
-    function() {
+    "extension.ddl-3-to-go-struct",
+    function () {
       var editor = vscode.window.activeTextEditor;
       if (!editor) {
         return; // No open text editor
@@ -78,23 +78,23 @@ function activate(context) {
 
           if (/[a-zA-Z\_]+\s(uuid)/gi.exec(line) != null) {
             const colunmName = line.split(" ")[0];
-            if (/not\snull/gi.exec(line) == null) {
+            if (/NOT\sNULL/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tstring\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\tstring\t`db:"' +
+                colunmName +
+                '"`',
               ];
             } else {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tuuid.UUID\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\tuuid.UUID\t`db:"' +
+                colunmName +
+                '"`',
               ];
             }
           }
@@ -103,96 +103,96 @@ function activate(context) {
             /[a-zA-Z\_]+\s(text|character|inet|varchar)/gi.exec(line) != null
           ) {
             const colunmName = line.split(" ")[0];
-            if (/not\snull/gi.exec(line) == null) {
+            if (/NOT\sNULL/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tstring\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\t*string\t`db:"' +
+                colunmName +
+                '"`',
               ];
             } else {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tstring\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\tstring\t`db:"' +
+                colunmName +
+                '"`',
               ];
             }
           }
 
           if (
-            /[a-zA-Z\_]+\s(serial|integer|bigserial|bigint|smallint)/gi.exec(
+            /[a-zA-Z\_]+\s(serial|integer|int|bigserial|bigint|smallint)/gi.exec(
               line
             ) != null
           ) {
             const colunmName = line.split(" ")[0];
-            if (/not\snull/gi.exec(line) == null) {
+            if (/NOT\sNULL/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tsql.NullInt64\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\t*int64\t`db:"' +
+                colunmName +
+                '"`',
               ];
             } else {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tint64\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\tint64\t`db:"' +
+                colunmName +
+                '"`',
               ];
             }
           }
 
-          if (/[a-zA-Z\_]+\s(float|numeric)/gi.exec(line) != null) {
+          if (/[a-zA-Z\_]+\s(float|numeric|decinal)/gi.exec(line) != null) {
             const colunmName = line.split(" ")[0];
-            if (/not\snull/gi.exec(line) == null) {
+            if (/NOT\sNULL/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tsql.NullFloat64\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\t*Float64\t`db:"' +
+                colunmName +
+                '"`',
               ];
             } else {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tfloat64\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\tfloat64\t`db:"' +
+                colunmName +
+                '"`',
               ];
             }
           }
 
-          if (/[a-zA-Z\_]+\s(boolean)/gi.exec(line) != null) {
+          if (/[a-zA-Z\_]+\s(boolean|bool)/gi.exec(line) != null) {
             const colunmName = line.split(" ")[0];
-            if (/not\snull/gi.exec(line) == null) {
+            if (/NOT\sNULL/gi.exec(line) == null) {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tsql.NullBool\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\t*bool\t`db:"' +
+                colunmName +
+                '"`',
               ];
             } else {
               structCodes = [
                 ...structCodes,
                 "\t" +
-                  makeTitle(colunmName) +
-                  '\tbool\t`db:"' +
-                  colunmName +
-                  '"`',
+                makeTitle(colunmName) +
+                '\tbool\t`db:"' +
+                colunmName +
+                '"`',
               ];
             }
           }
@@ -202,10 +202,10 @@ function activate(context) {
             structCodes = [
               ...structCodes,
               "\t" +
-                makeTitle(colunmName) +
-                '\tmap[string]interface{}\t`db:"' +
-                colunmName +
-                '"`',
+              makeTitle(colunmName) +
+              '\tmap[string]interface{}\t`db:"' +
+              colunmName +
+              '"`',
             ];
           }
 
@@ -214,11 +214,31 @@ function activate(context) {
             structCodes = [
               ...structCodes,
               "\t" +
+              makeTitle(colunmName) +
+              '\t*time.Time\t`db:"' +
+              colunmName +
+              '"`',
+            ];
+
+            if (/NOT\sNULL/gi.exec(line) == null) {
+              structCodes = [
+                ...structCodes,
+                "\t" +
                 makeTitle(colunmName) +
                 '\t*time.Time\t`db:"' +
                 colunmName +
                 '"`',
-            ];
+              ];
+            } else {
+              structCodes = [
+                ...structCodes,
+                "\t" +
+                makeTitle(colunmName) +
+                '\ttime.Time\t`db:"' +
+                colunmName +
+                '"`',
+              ];
+            }
           }
 
           if (/\)\;/gi.exec(line) != null) {
@@ -240,7 +260,7 @@ function activate(context) {
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
   activate,

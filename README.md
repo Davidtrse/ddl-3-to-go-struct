@@ -4,16 +4,6 @@
 
 This is a simple tool to convert the DDL instructions to a struct in Goland using the SQL package.
 
-<p align="center">
-  <a href="https://farsoft.com.br">
-    <img alt="To use in my projects" src="https://img.shields.io/badge/made%20by-Farsoft%20Systems-purple%2306b656?style=flat-square">
-  </a>
-
-  <a href="https://www.github.com/farnetani/">
-    <img alt="Copyright Arlei F. Farnetani Junior" src="https://img.shields.io/badge/solved%20by-Arlei%20F.%20Farnetani%20Junior-%2306b656?style=flat-square">
-  </a>
-</p>
-
 The steps is simple.
 
 First select the ddl create table instructions, example:
@@ -43,11 +33,11 @@ Will result in:
 // apps --
 	ID	uuid.UUID	`db:"id"`
 	APPNome	string	`db:"app_nome"`
-	APPIcone	string	`db:"app_icone"`
+	APPIcone	*string	`db:"app_icone"`
 	APPAtiva	bool	`db:"app_ativa"`
 	CreatedAT	*time.Time	`db:"created_at"`
 	UpdatedAT	*time.Time	`db:"updated_at"`
-	DeletedAT	*time.Time	`db:"deleted_at"`
+	DeletedAT	time.Time	`db:"deleted_at"`
 ```
 
 ## Edition of Code
@@ -82,18 +72,10 @@ yo code
 ```
 
 ## Version
-`V0.0.4`
+`V0.0.5`
 
 ## License
 
-This project is a copy of the extension: DDLG2GS [https://github.com/Wandecilenio/DDL2GS](https://github.com/Wandecilenio/DDL2GS) with customizations made by me to accept varchar and uuid fields for the my private use. I'm not responsible for any bugs/problems.
+This project is a copy of the extension: [https://github.com/farnetani/ddl-to-go-struct](https://github.com/farnetani/ddl-to-go-struct) with customizations made by me to accept varchar and uuid fields for the my private use. I'm not responsible for any bugs/problems.
 
-The refactoring of the project is under the MIT license. See the [LICENSE](/LICENSE.md) file for more details. Please, in case of copying, do not forget to cite the source above that originated all (DDLG2GS).
-
-Customized and Refactored with :heart: by [Arlei F. Farnetani Junior](https://github.com/farnetani)
-
-[![Github Badge](https://img.shields.io/github/followers/farnetani?style=social)](https://img.shields.io/github/followers/farnetani?style=social)
-[![Instagram Badge](https://img.shields.io/badge/-farnetanijr-purple?style=flat-square&logo=Instagram&logoColor=white&link=https://www.instagram.com/farnetanijr/)](https://www.instagram.com/farnetanijr)
-[![Facebook Badge](https://img.shields.io/badge/-farnetanijr-navy?style=flat-square&logo=Facebook&logoColor=white&link=https://www.facebook.com/farnetanijr/)](https://www.facebook.com/farnetanijr)
-[![Gmail Badge](https://img.shields.io/badge/-farnetani@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:farnetani@gmail.com)](mailto:farnetani@gmail.com)
-[![Linkedin Badge](https://img.shields.io/badge/-Arlei%20F.%20Farnetani%20Junior-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/farnetani/)](https://www.linkedin.com/in/farnetani/)
+Customized and Refactored with :heart: by [David Tran](https://github.com/Davidtrse)
