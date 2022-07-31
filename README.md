@@ -31,13 +31,15 @@ Will result in:
 
 ```go
 // apps --
+type Apps struct {
 	ID	uuid.UUID	`db:"id"`
-	APPNome	string	`db:"app_nome"`
+	APPNome	  string	`db:"app_nome"`
 	APPIcone	*string	`db:"app_icone"`
 	APPAtiva	bool	`db:"app_ativa"`
 	CreatedAT	*time.Time	`db:"created_at"`
 	UpdatedAT	*time.Time	`db:"updated_at"`
 	DeletedAT	time.Time	`db:"deleted_at"`
+}
 ```
 
 ## Edition of Code
@@ -48,7 +50,7 @@ npm install -g vsce
 cd /extension
 vsce package
 
-- The file will be generated: ddl-to-go-struct-0.0.3.vsix
+- The file will be generated: `from-ddl-to-go-struct-1.0.0.vsix`
 
 - Right click on the file and install the vsix extension
 ```
@@ -57,22 +59,10 @@ vsce package
 
 ```
 vsce publish -p <token>
-
-or access link direct and click in + New extension
-
-https://marketplace.visualstudio.com/manage/publishers/farnetani
-```
-
-## Creating a new extension
-
-```
-npm install -g yo generator-code
-
-yo code
 ```
 
 ## Version
-`V0.0.7`
+`V1.0.0`
 
 ## License
 
